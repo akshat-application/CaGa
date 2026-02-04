@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.model
+package com.multiplayer.local.model
 
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type

@@ -1,8 +1,8 @@
-package com.dog.truefrienddog.utils
+package com.multiplayer.local.utils
 
 import android.app.Activity
 import android.util.Log
-import com.dog.truefrienddog.model.SeData
+import com.multiplayer.local.model.SeData
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.LoadAdError

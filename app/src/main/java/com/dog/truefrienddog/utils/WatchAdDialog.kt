@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.utils
+package com.multiplayer.local.utils
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,10 +36,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.dog.truefrienddog.R
-import com.dog.truefrienddog.ui.theme.dialogCardBackground
-import com.dog.truefrienddog.ui.theme.dialogMiningBackground
-import com.dog.truefrienddog.ui.theme.speedBackground
+import com.multiplayer.local.R
+import com.multiplayer.local.ui.theme.dialogCardBackground
+import com.multiplayer.local.ui.theme.dialogMiningBackground
+import com.multiplayer.local.ui.theme.speedBackground
 
 
 @Composable

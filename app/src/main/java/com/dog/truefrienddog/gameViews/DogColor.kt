@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.gameViews
+package com.multiplayer.local.gameViews
 
 import android.graphics.Color
 import android.graphics.Paint
@@ -16,14 +16,12 @@ fun paint(color: Int) =
     Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color }
 
 val dogColorSkins = listOf(
-
     DogColorSkin(
         body = paint(Color.parseColor("#C68642")),
         ear = paint(Color.parseColor("#8D5524")),
         leg = paint(Color.parseColor("#8D5524")),
         tail = paint(Color.parseColor("#8D5524"))
     ),
-
     DogColorSkin(
         body = paint(Color.WHITE),
         ear = paint(Color.LTGRAY),

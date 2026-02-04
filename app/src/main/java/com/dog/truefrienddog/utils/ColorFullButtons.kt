@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.utils
+package com.multiplayer.local.utils
 
 
 import androidx.compose.animation.core.LinearEasing

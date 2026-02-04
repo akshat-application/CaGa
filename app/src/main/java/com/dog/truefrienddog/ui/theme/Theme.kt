@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.ui.theme
+package com.multiplayer.local.ui.theme
 
 import android.app.Activity
 import android.os.Build

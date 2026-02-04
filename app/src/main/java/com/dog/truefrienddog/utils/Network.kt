@@ -1,12 +1,12 @@
-package com.dog.truefrienddog.utils
+package com.multiplayer.local.utils
 
 import android.content.Context
 import android.net.wifi.WifiManager
 import android.text.format.Formatter
 import android.util.Log
-import com.dog.truefrienddog.utils.LanServer.disconnectAllClients
-import com.dog.truefrienddog.utils.LanServer.job
-import com.dog.truefrienddog.utils.LanServer.server
+import com.multiplayer.local.utils.LanServer.disconnectAllClients
+import com.multiplayer.local.utils.LanServer.job
+import com.multiplayer.local.utils.LanServer.server
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

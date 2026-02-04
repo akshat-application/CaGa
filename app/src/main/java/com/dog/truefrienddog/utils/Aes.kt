@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.utils
+package com.multiplayer.local.utils
 
 import java.nio.charset.StandardCharsets
 import java.util.Base64

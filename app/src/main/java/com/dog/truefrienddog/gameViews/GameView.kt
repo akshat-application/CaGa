@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.gameViews
+package com.multiplayer.local.gameViews
 
 import android.content.Context
 import android.graphics.Canvas
@@ -12,10 +12,10 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.toArgb
-import com.dog.truefrienddog.screen.colorList
-import com.dog.truefrienddog.utils.GameState
-import com.dog.truefrienddog.utils.players
-import com.dog.truefrienddog.utils.randomPosition
+import com.multiplayer.local.screen.colorList
+import com.multiplayer.local.utils.GameState
+import com.multiplayer.local.utils.players
+import com.multiplayer.local.utils.randomPosition
 import kotlin.random.Random
 
 

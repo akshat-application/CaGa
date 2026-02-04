@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.screen
+package com.multiplayer.local.screen
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -16,8 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.dog.truefrienddog.utils.GameState
-import com.dog.truefrienddog.utils.PlayerState
+import com.multiplayer.local.utils.GameState
+import com.multiplayer.local.utils.PlayerState
 
 @Composable
 fun GameConnectedScreen(host: String, join: String) {

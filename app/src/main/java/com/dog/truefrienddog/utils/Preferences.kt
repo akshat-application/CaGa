@@ -1,13 +1,13 @@
-package com.dog.truefrienddog.utils
+package com.multiplayer.local.utils
 
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import com.dog.truefrienddog.model.PlayerInfo
-import com.dog.truefrienddog.model.SeData
-import com.dog.truefrienddog.model.Title
-import com.dog.truefrienddog.model.Type
+import com.multiplayer.local.model.PlayerInfo
+import com.multiplayer.local.model.SeData
+import com.multiplayer.local.model.Title
+import com.multiplayer.local.model.Type
 import com.google.gson.Gson
 
 class Preferences(context: Context) {

@@ -1,6 +1,6 @@
-package com.dog.truefrienddog.model
+package com.multiplayer.local.model
 
-import com.dog.truefrienddog.utils.Aes
+import com.multiplayer.local.utils.Aes
 import com.google.gson.Gson
 
 //import org.bouncycastle.pqc.crypto.sphincsplus.SPHINCSPlusKeyPairGenerator

@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.gameViews
+package com.multiplayer.local.gameViews
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint

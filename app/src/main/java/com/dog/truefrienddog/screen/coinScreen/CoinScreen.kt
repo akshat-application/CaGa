@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.screen.coinScreen
+package com.multiplayer.local.screen.coinScreen
 
 import android.app.Activity
 import android.util.Log
@@ -42,20 +42,20 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import com.dog.truefrienddog.MainActivity
-import com.dog.truefrienddog.R
-import com.dog.truefrienddog.screen.GameScreenViewModel
-import com.dog.truefrienddog.screen.initFirstTime
-import com.dog.truefrienddog.ui.theme.backGroundDashboard
-import com.dog.truefrienddog.ui.theme.backgroundPopularColor
-import com.dog.truefrienddog.ui.theme.newButtonStyle
-import com.dog.truefrienddog.ui.theme.newButtonStyle1
-import com.dog.truefrienddog.ui.theme.popularBoxTextStyle
-import com.dog.truefrienddog.ui.theme.textColor
-import com.dog.truefrienddog.utils.AdsLoadDialog
-import com.dog.truefrienddog.utils.AppConstant
-import com.dog.truefrienddog.utils.DrawBorder
-import com.dog.truefrienddog.utils.Preferences
+import com.multiplayer.local.MainActivity
+import com.multiplayer.local.R
+import com.multiplayer.local.screen.GameScreenViewModel
+import com.multiplayer.local.screen.initFirstTime
+import com.multiplayer.local.ui.theme.backGroundDashboard
+import com.multiplayer.local.ui.theme.backgroundPopularColor
+import com.multiplayer.local.ui.theme.newButtonStyle
+import com.multiplayer.local.ui.theme.newButtonStyle1
+import com.multiplayer.local.ui.theme.popularBoxTextStyle
+import com.multiplayer.local.ui.theme.textColor
+import com.multiplayer.local.utils.AdsLoadDialog
+import com.multiplayer.local.utils.AppConstant
+import com.multiplayer.local.utils.DrawBorder
+import com.multiplayer.local.utils.Preferences
 
 @Composable
 fun CoinScreen(viewModel: GameScreenViewModel = hiltViewModel(), onBack: () -> Unit) {

@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.screen
+package com.multiplayer.local.screen
 
 // ---------- IMPORTS ----------
 import android.util.Log
@@ -42,14 +42,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.dog.truefrienddog.utils.AppConstant
-import com.dog.truefrienddog.utils.GameState
-import com.dog.truefrienddog.utils.GameState.localPlayer
-import com.dog.truefrienddog.utils.LanClient
-import com.dog.truefrienddog.utils.LanServer
-import com.dog.truefrienddog.utils.PlayerState
-import com.dog.truefrienddog.utils.isStart
-import com.dog.truefrienddog.utils.players
+import com.multiplayer.local.utils.AppConstant
+import com.multiplayer.local.utils.GameState
+import com.multiplayer.local.utils.GameState.localPlayer
+import com.multiplayer.local.utils.LanClient
+import com.multiplayer.local.utils.LanServer
+import com.multiplayer.local.utils.PlayerState
+import com.multiplayer.local.utils.isStart
+import com.multiplayer.local.utils.players
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

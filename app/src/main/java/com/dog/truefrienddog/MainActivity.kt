@@ -1,4 +1,4 @@
-package com.dog.truefrienddog
+package com.multiplayer.local
 
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -11,11 +11,11 @@ import androidx.activity.compose.setContent
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.dog.truefrienddog.model.SeData
-import com.dog.truefrienddog.model.Type
-import com.dog.truefrienddog.screen.MultiplayerApp
-import com.dog.truefrienddog.utils.Aes
-import com.dog.truefrienddog.utils.Preferences
+import com.multiplayer.local.model.SeData
+import com.multiplayer.local.model.Type
+import com.multiplayer.local.screen.MultiplayerApp
+import com.multiplayer.local.utils.Aes
+import com.multiplayer.local.utils.Preferences
 import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.Request

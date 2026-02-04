@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.ui.theme
+package com.multiplayer.local.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.utils
+package com.multiplayer.local.utils
 
 object AppConstant {
     const val SINGLE_PLAYER = "SINGLE PLAYER"

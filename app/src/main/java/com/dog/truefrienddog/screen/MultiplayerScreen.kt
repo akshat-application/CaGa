@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.screen
+package com.multiplayer.local.screen
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -16,9 +16,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.dog.truefrienddog.model.SeData
-import com.dog.truefrienddog.utils.Aes
-import com.dog.truefrienddog.utils.AppConstant
+import com.multiplayer.local.model.SeData
+import com.multiplayer.local.utils.Aes
+import com.multiplayer.local.utils.AppConstant
 import com.google.gson.Gson
 
 

@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.screen.result
+package com.multiplayer.local.screen.result
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -35,11 +35,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.dog.truefrienddog.model.PlayerInfo
-import com.dog.truefrienddog.ui.theme.backGroundDashboard
-import com.dog.truefrienddog.utils.AppConstant
-import com.dog.truefrienddog.utils.DrawBorder
-import com.dog.truefrienddog.utils.Preferences
+import com.multiplayer.local.model.PlayerInfo
+import com.multiplayer.local.ui.theme.backGroundDashboard
+import com.multiplayer.local.utils.AppConstant
+import com.multiplayer.local.utils.DrawBorder
+import com.multiplayer.local.utils.Preferences
 
 @Composable
 fun ResulScreen(onBack: () -> Unit) {

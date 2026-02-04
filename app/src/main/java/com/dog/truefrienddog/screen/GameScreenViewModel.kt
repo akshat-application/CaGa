@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.screen
+package com.multiplayer.local.screen
 
 import android.app.Activity
 import android.content.Context
@@ -6,13 +6,13 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dog.truefrienddog.model.Title
-import com.dog.truefrienddog.utils.AdsUtils
-import com.dog.truefrienddog.utils.AppConstant
-import com.dog.truefrienddog.utils.GameState
-import com.dog.truefrienddog.utils.Preferences
-import com.dog.truefrienddog.utils.loadUnityAds
-import com.dog.truefrienddog.utils.showUnityAds
+import com.multiplayer.local.model.Title
+import com.multiplayer.local.utils.AdsUtils
+import com.multiplayer.local.utils.AppConstant
+import com.multiplayer.local.utils.GameState
+import com.multiplayer.local.utils.Preferences
+import com.multiplayer.local.utils.loadUnityAds
+import com.multiplayer.local.utils.showUnityAds
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope

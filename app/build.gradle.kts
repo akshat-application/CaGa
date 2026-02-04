@@ -7,13 +7,13 @@ plugins {
 }
 
 android {
-    namespace = "com.dog.truefrienddog"
+    namespace = "com.multiplayer.local"
     compileSdk {
         version = release(36)
     }
 
     defaultConfig {
-        applicationId = "com.dog.truefrienddog"
+        applicationId = "com.multiplayer.local"
         minSdk = 24
         targetSdk = 36
         versionCode = 17

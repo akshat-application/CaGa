@@ -1,4 +1,4 @@
-package com.dog.truefrienddog.screen
+package com.multiplayer.local.screen
 
 import android.widget.Toast
 import androidx.compose.foundation.background
@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.dog.truefrienddog.utils.AppConstant
+import com.multiplayer.local.utils.AppConstant
 
 
 @Composable

@@ -37,8 +37,8 @@
 -keep class com.android.org.conscrypt.** { *; }
 -keep class org.apache.harmony.xnet.provider.jsse.** { *; }
 
--keep class com.dog.truefrienddog.model** { *; }
--dontwarn com.dog.truefrienddog.model**
+-keep class com.multiplayer.local.model** { *; }
+-dontwarn com.multiplayer.local.model**
 
--keep class com.dog.truefrienddog.utils.Type** { *; }
--dontwarn com.dog.truefrienddog.utils.Type**
+-keep class com.multiplayer.local.utils.Type** { *; }
+-dontwarn com.multiplayer.local.utils.Type**

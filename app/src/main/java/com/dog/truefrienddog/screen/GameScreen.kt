@@ -29,6 +29,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dog.truefrienddog.gameViews.CarRacing
 import com.multiplayer.local.gameViews.GameView
 import com.multiplayer.local.getAll
 import com.multiplayer.local.model.PlayerInfo
@@ -134,7 +135,7 @@ fun MultiplayerApp(viewModel: GameScreenViewModel = hiltViewModel()) {
         Screen.SinglePlayer -> {
             AndroidView(
                 factory = {
-                    GameView(it, isMultiplePlayer = false, life = life) {
+                    CarRacing(it, isMultiplePlayer = false, life = life) {
                         if (loadFistTime) {
                             isGameOverDialog = true
                             loadFistTime = false

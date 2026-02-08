@@ -3,14 +3,11 @@ package com.dog.truefrienddog.gameViews
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import android.view.MotionEvent
 import android.view.View
-import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
-import android.graphics.Color
-import com.multiplayer.local.gameViews.DogDrawer
 import com.multiplayer.local.gameViews.dogColorSkins
 import com.multiplayer.local.utils.GameState
 
@@ -292,11 +289,10 @@ class CarRacing(
             carY + carRect.height()
         )
 
-// Draw the car
         canvas.drawRoundRect(
             carRect,
-            20f,   // corner radius X
-            20f,   // corner radius Y
+            20f,
+            20f,
             carPaint
         )
 
@@ -308,20 +304,31 @@ class CarRacing(
         val x = event.x
         val y = event.y
 
-        when (event.actionMasked) {
-
-            MotionEvent.ACTION_DOWN,
-            MotionEvent.ACTION_POINTER_DOWN -> {
-                handlePress(x, y)
-            }
-
-            MotionEvent.ACTION_UP,
-            MotionEvent.ACTION_POINTER_UP,
-            MotionEvent.ACTION_CANCEL -> {
-                resetControls()
+        for (i in 0 until event.pointerCount) {
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN,
+                MotionEvent.ACTION_POINTER_DOWN -> {
+                    val x = event.getX(i)
+                    val y = event.getY(i)
+                    updateButtonStates(x, y)
+                }
+                MotionEvent.ACTION_UP,
+                MotionEvent.ACTION_POINTER_UP,
+                MotionEvent.ACTION_CANCEL -> {
+                    resetControls()
+                }
             }
         }
+
         return true
+    }
+
+    private fun updateButtonStates(x: Float, y: Float) {
+        if (leftBtn.contains(x, y)) moveLeft = true
+        if (rightBtn.contains(x, y)) moveRight = true
+        if (upBtn.contains(x, y)) moveUp = true
+        if (downBtn.contains(x, y)) moveDown = true
+        if (boostBtn.contains(x, y)) boost = true
     }
 
     private var p2X = 300f

@@ -6,10 +6,14 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
+import android.os.Handler
+import android.os.Looper
 import android.view.MotionEvent
 import android.view.View
 import com.multiplayer.local.gameViews.dogColorSkins
 import com.multiplayer.local.utils.GameState
+import com.multiplayer.local.utils.players
+import kotlin.random.Random
 
 
 @SuppressLint("ViewConstructor")
@@ -48,22 +52,6 @@ class CarRacing(
     private val downBtn = RectF()
     private val boostBtn = RectF()
 
-    private fun drawButton(
-        canvas: Canvas,
-        x: Float,
-        y: Float,
-        size: Float,
-        paint: Paint
-    ) {
-        canvas.drawRect(
-            x,
-            y,
-            x + size,
-            y + size,
-            paint
-        )
-    }
-
     private val lanePaint = Paint().apply {
         color = Color.WHITE
         strokeWidth = 8f
@@ -74,19 +62,11 @@ class CarRacing(
         color = Color.rgb(40, 160, 40)
     }
 
-    private val treeTrunkPaint = Paint().apply {
-        color = Color.rgb(120, 80, 50)
-    }
-
-    private val treeLeafPaint = Paint().apply {
-        color = Color.rgb(30, 140, 30)
-        isAntiAlias = true
-    }
-
     private var carX = 0f
     private var carY = 0f
 
-    private var speed = 8f
+    private var speed = 0f
+    private var treeSpeed = 0f
     private val NORMAL_SPEED = 8f
     private val BOOST_SPEED = 16f
 
@@ -96,13 +76,80 @@ class CarRacing(
     private var carRect = RectF()
 
     private val player1 = RectF()
+    private val treats = mutableListOf<Tree>()
 
+    private val isMultiPlayer = isMultiplePlayer
+    val WORLD_WIDTH = 1000f
+    val WORLD_HEIGHT = 600f
+
+    fun worldToScreenX(x: Float) = (x / WORLD_WIDTH) * width
+    fun worldToScreenY(y: Float) = (y / WORLD_HEIGHT) * height
+    fun worldToScreenSize(size: Float) = (size / WORLD_WIDTH) * width
+
+    private val handler = Handler(Looper.getMainLooper())
+
+    private val spawnRunnable = object : Runnable {
+        override fun run() {
+            spawnTreat()
+            handler.postDelayed(this, 1000)
+        }
+    }
+
+    private var smoothRemoteX = 0f
+    private var smoothRemoteY = 0f
+    private fun update() {
+        val alpha = 0.2f
+        for (element in players) {
+            smoothRemoteX += (element.x - smoothRemoteX) * alpha
+            smoothRemoteY += (element.y - smoothRemoteY) * alpha
+        }
+    }
+
+    private val gameLoop = object : Runnable {
+        override fun run() {
+            update()
+            invalidate()
+            postDelayed(this, 16)
+        }
+    }
+
+
+    init {
+//        if (isMultiPlayer) {
+//            post(gameLoop)
+//        }
+        handler.post(spawnRunnable)
+    }
+
+    var roadL = 0
+    var roadR = 0
+    var screenWidth = 0
+
+    private fun spawnTreat() {
+//        if (GameState.localPlayer.life <= 0 && !isMultiPlayer) return
+        val size = worldToScreenSize(80f)
+        if (screenWidth != 0) {
+            val y = Random.nextInt(0, width - size.toInt()).toFloat()
+            val randomLeft = Random.nextInt(0, (roadL - 35f).toInt())
+            treats.add(Tree(randomLeft.toFloat(), 0f, size, treeSpeed))
+            val randomRight = Random.nextInt((roadR + 35f).toInt(), screenWidth.toInt())
+            val randomRight1 = Random.nextInt((roadR + 35f).toInt(), screenWidth.toInt())
+            treats.add(Tree(randomRight.toFloat(), 0f , size, treeSpeed))
+            treats.add(Tree(randomRight1.toFloat(), 0f , size, treeSpeed))
+        }
+    }
+
+    // Define this in your View or Game Loop class
+    private var roadOffset = 0f
+    private var backgroundSpeed = 0f // The speed of the road specifically
+    private val friction = 0.2f       // How fast it slows down (smaller = slides longer)
+    private val acceleration = 20f   // How fast it speeds up
+    private val maxBackSpeed = 15f    // Max speed for the background
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-        val screenW = width.toFloat()
-        val screenH = height.toFloat()
+        var screenW = width.toFloat()
+        var screenH = height.toFloat()
 
         val groundHeight = screenH * 0.7f
         val controlHeight = screenH * 0.3f
@@ -113,12 +160,43 @@ class CarRacing(
 
         val laneCount = 5
         val laneWidth = roadWidth / laneCount
+        roadR = roadRight.toInt()
+        roadL = roadLeft.toInt()
+        screenWidth = screenH.toInt()
 
         if (moveLeft) carX -= speed
         if (moveRight) carX += speed
         if (moveUp) carY -= speed
         if (moveDown) carY += speed
         if (boost) speed = BOOST_SPEED else speed = NORMAL_SPEED
+
+//        roadOffset += speed
+
+// Reset offset when it exceeds the pattern length (100f)
+// This prevents the number from getting too large and keeps the loop smooth
+        // 1. Calculate the background speed
+        val halfHeight = screenH / 2
+
+        if (moveUp && carY <= halfHeight) {
+            // Car is in the top half and moving up: Speed up the road
+            if (backgroundSpeed < maxBackSpeed) {
+                backgroundSpeed += acceleration
+            }
+        } else {
+            // User stopped clicking UP or car is in bottom half: Slow down slowly
+            if (backgroundSpeed > 0) {
+                backgroundSpeed -= friction
+            }
+            if (backgroundSpeed < 0) backgroundSpeed = 0f
+        }
+
+// 2. Update the road offset using this specific background speed
+        roadOffset += backgroundSpeed
+
+// 3. Keep the offset in loop (0 to 100)
+        if (roadOffset >= 100f) {
+            roadOffset %= 100f
+        }
 
         canvas.drawRect(
             0f,
@@ -128,19 +206,31 @@ class CarRacing(
             groundPaint
         )
 
+        //// Right grass
+        canvas.drawRect(
+            roadRight,
+            0f,
+            screenW,
+            groundHeight,
+            grassPaint
+        )
+
         for (i in 1 until laneCount) {
             val x = roadLeft + laneWidth * i
-            var y = 0f
+
+            // Start drawing from the offset, but subtract 100 to draw
+            // a segment "off-screen" at the top so it slides in smoothly.
+            var y = -100f + roadOffset
 
             while (y < groundHeight) {
                 canvas.drawLine(
                     x,
                     y,
                     x,
-                    y + 50f,
+                    y + 50f, // Length of the dash
                     lanePaint
                 )
-                y += 100f
+                y += 100f // Gap between start of one dash and the next
             }
         }
         canvas.drawRect(
@@ -150,44 +240,16 @@ class CarRacing(
             groundHeight,
             grassPaint
         )
-//
-//// Right grass
-        canvas.drawRect(
-            roadRight,
-            0f,
-            screenW,
-            groundHeight,
-            grassPaint
-        )
 
-        fun drawTree(x: Float, y: Float) {
-            // trunk
-            canvas.drawRect(
-                x - 6f,
-                y,
-                x + 6f,
-                y + 35f,
-                treeTrunkPaint
-            )
-//
-//            // leaves
-            canvas.drawCircle(
-                x,
-                y,
-                20f,
-                treeLeafPaint
-            )
-        }
-
-        var treeY = 60f
+        // Subtracting 140 and adding offset makes them scroll smoothly
+        var treeY = -140f + (roadOffset % 140f)
         while (treeY < groundHeight) {
-
-            // Left side
-            drawTree(roadLeft - 35f, treeY)
-
-            // Right side
-            drawTree(roadRight + 35f, treeY)
-
+            drawTree(canvas, roadRight + 35f, treeY, 0)
+            drawTree(canvas, roadRight + 150f, treeY, 1)
+            drawTree(canvas, roadRight + 250f, treeY, 2)
+            drawTree(canvas, roadLeft - 35f, treeY, 0)
+            drawTree(canvas, roadLeft - 150f, treeY, 1)
+            drawTree(canvas, roadLeft - 250f, treeY, 2)
             treeY += 140f
         }
 
@@ -271,9 +333,10 @@ class CarRacing(
         )
 
         carY = carY.coerceIn(
-            0f,
+            groundHeight/2,
             groundHeight - carRect.height()
         )
+
 
 // Car paint (BEST: define this once outside onDraw)
         val carPaint = Paint().apply {
@@ -295,8 +358,6 @@ class CarRacing(
             20f,
             carPaint
         )
-
-
         invalidate()
     }
 
@@ -312,6 +373,7 @@ class CarRacing(
                     val y = event.getY(i)
                     updateButtonStates(x, y)
                 }
+
                 MotionEvent.ACTION_UP,
                 MotionEvent.ACTION_POINTER_UP,
                 MotionEvent.ACTION_CANCEL -> {
@@ -370,7 +432,6 @@ class CarRacing(
             p1Y + playerHeight
         )
     }
-
 
 
     private fun handlePress(x: Float, y: Float) {

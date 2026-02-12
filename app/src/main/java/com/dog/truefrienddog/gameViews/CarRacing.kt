@@ -13,6 +13,7 @@ import android.view.View
 import com.multiplayer.local.gameViews.dogColorSkins
 import com.multiplayer.local.utils.GameState
 import com.multiplayer.local.utils.players
+import kotlin.math.sqrt
 import kotlin.random.Random
 
 
@@ -105,19 +106,18 @@ class CarRacing(
         }
     }
 
-    private val gameLoop = object : Runnable {
-        override fun run() {
-            update()
-            invalidate()
-            postDelayed(this, 16)
-        }
+    val finishY = 100f // Usually a low Y value if the car moves "up"
+
+    val startY = 400f
+    val totalTrackLength = startY - finishY
+
+    fun getProgressPercentage(currentY: Float): Int {
+        val distanceCovered = startY - currentY
+        val progress = (distanceCovered / totalTrackLength) * 100
+        return progress.toInt()
     }
 
-
     init {
-//        if (isMultiPlayer) {
-//            post(gameLoop)
-//        }
         handler.post(spawnRunnable)
     }
 
@@ -143,8 +143,9 @@ class CarRacing(
     private var roadOffset = 0f
     private var backgroundSpeed = 0f // The speed of the road specifically
     private val friction = 0.2f       // How fast it slows down (smaller = slides longer)
-    private val acceleration = 20f   // How fast it speeds up
+    private val acceleration = 200f   // How fast it speeds up
     private val maxBackSpeed = 15f    // Max speed for the background
+    private var running =  0f    // Max speed for the background
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -179,11 +180,13 @@ class CarRacing(
 
         if (moveUp && carY <= halfHeight) {
             // Car is in the top half and moving up: Speed up the road
+            running += 1
             if (backgroundSpeed < maxBackSpeed) {
                 backgroundSpeed += acceleration
             }
         } else {
             // User stopped clicking UP or car is in bottom half: Slow down slowly
+
             if (backgroundSpeed > 0) {
                 backgroundSpeed -= friction
             }
@@ -337,27 +340,35 @@ class CarRacing(
             groundHeight - carRect.height()
         )
 
-
-// Car paint (BEST: define this once outside onDraw)
-        val carPaint = Paint().apply {
-            color = android.graphics.Color.RED
-            isAntiAlias = true
+//        getDistanceToFinish(carX, carY)
+        val paint = Paint().apply {
+            color = Color.WHITE
+            textSize = 50f
+        }
+        val progress = getProgressPercentage(carY) + running
+        val textPaint = Paint().apply {
+            color = Color.YELLOW
+            textSize = 60f
+            isFakeBoldText = true
         }
 
-//// Update car rectangle position
-        carRect.set(
-            carX,
-            carY,
-            carX + carRect.width(),
-            carY + carRect.height()
-        )
+        canvas.drawText("Progress: $progress%", 50f, 100f, textPaint)
 
-        canvas.drawRoundRect(
-            carRect,
-            20f,
-            20f,
-            carPaint
-        )
+//// Update car rectangle position
+//        carRect.set(
+//            carX,
+//            carY,
+//            carX + carRect.width(),
+//            carY + carRect.height()
+//        )
+        drawCarTopView(canvas, carX, carY, 1f,Color.RED, true, true )
+
+//        canvas.drawRoundRect(
+//            carRect,
+//            20f,
+//            20f,
+//            carPaint
+//        )
         invalidate()
     }
 

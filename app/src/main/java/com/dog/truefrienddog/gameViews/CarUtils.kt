@@ -117,3 +117,135 @@ fun drawTree(canvas: Canvas, x: Float, y: Float) {
         treeLeafPaint
     )
 }
+
+fun drawCar(
+    canvas: Canvas,
+    x: Float,
+    y: Float,
+    scale: Float,
+    carColor: Int
+) {
+    val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    // 🚗 Car body
+    paint.color = carColor
+    paint.style = Paint.Style.FILL
+    canvas.drawRect(
+        x,
+        y,
+        x + 200f * scale,
+        y + 60f * scale,
+        paint
+    )
+
+    // 🚙 Car top
+    canvas.drawRect(
+        x + 40f * scale,
+        y - 40f * scale,
+        x + 160f * scale,
+        y,
+        paint
+    )
+
+    // ⚫ Wheels
+    paint.color = Color.BLACK
+    canvas.drawCircle(x + 50f * scale, y + 70f * scale, 20f * scale, paint)
+    canvas.drawCircle(x + 150f * scale, y + 70f * scale, 20f * scale, paint)
+}
+
+fun drawCarTopView(
+    canvas: Canvas,
+    x: Float,
+    y: Float,
+    scale: Float,
+    carColor: Int,
+    showRocketLauncher: Boolean,
+    showMachineGun: Boolean
+) {
+    val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+    val carWidth = 80f * scale
+    val carHeight = 160f * scale
+    val centerX = x + carWidth / 2
+
+    // 🚗 Main body
+    paint.color = carColor
+    paint.style = Paint.Style.FILL
+    canvas.drawRoundRect(
+        x, y,
+        x + carWidth, y + carHeight,
+        20f * scale, 20f * scale,
+        paint
+    )
+
+    // 🪟 Windshield
+    paint.color = Color.argb(180, 200, 230, 255)
+    canvas.drawRoundRect(
+        x + 10f * scale,
+        y + 20f * scale,
+        x + carWidth - 10f * scale,
+        y + 50f * scale,
+        10f * scale,
+        10f * scale,
+        paint
+    )
+
+    // 🛞 Wheels
+    paint.color = Color.BLACK
+    canvas.drawRect(x - 10f * scale, y + 30f * scale, x, y + 60f * scale, paint)
+    canvas.drawRect(x - 10f * scale, y + carHeight - 60f * scale, x, y + carHeight - 30f * scale, paint)
+    canvas.drawRect(x + carWidth, y + 30f * scale, x + carWidth + 10f * scale, y + 60f * scale, paint)
+    canvas.drawRect(x + carWidth, y + carHeight - 60f * scale, x + carWidth + 10f * scale, y + carHeight - 30f * scale, paint)
+
+    // 🔫 Machine gun (front)
+    if (showMachineGun) {
+        paint.color = Color.DKGRAY
+        canvas.drawRect(
+            centerX - 4f * scale,
+            y - 20f * scale,
+            centerX + 4f * scale,
+            y,
+            paint
+        )
+    }
+
+    // 🚀 Rocket launcher (ROOF MOUNTED)
+    if (showRocketLauncher) {
+        paint.color = Color.GRAY
+
+        // Launcher base
+        canvas.drawRoundRect(
+            centerX - 12f * scale,
+            y + 60f * scale,
+            centerX + 12f * scale,
+            y + 90f * scale,
+            6f * scale,
+            6f * scale,
+            paint
+        )
+
+        // Rocket tubes
+        paint.color = Color.DKGRAY
+        canvas.drawRect(
+            centerX - 8f * scale,
+            y + 40f * scale,
+            centerX - 2f * scale,
+            y + 60f * scale,
+            paint
+        )
+        canvas.drawRect(
+            centerX + 2f * scale,
+            y + 40f * scale,
+            centerX + 8f * scale,
+            y + 60f * scale,
+            paint
+        )
+    }
+
+    // 🔦 Head lights
+    paint.color = Color.YELLOW
+    canvas.drawCircle(centerX - 20f * scale, y + 5f * scale, 5f * scale, paint)
+    canvas.drawCircle(centerX + 20f * scale, y + 5f * scale, 5f * scale, paint)
+}
+
+
